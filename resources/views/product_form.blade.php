@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Summernote Editor in Laravel with Coding Driver</title>
+    <title>Admin Panel</title>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -56,11 +56,11 @@
                 </div>
                 <div class="form-group">
                     <label for="detail">Images</label>
-                    <input type="file" class="form-control" name="photos[]" multiple/>
+                    <input type="file" class="form-control" name="photos[]" multiple />
                     @if(isset($obj))
-                        @foreach($obj->images as $img)
-                            <p class="m-0">{{$img->image_path}} <a href="{{URL('/delete/image/'.$img->id.'/'.$obj->id)}}">Delete</a></p>
-                        @endforeach
+                    @foreach($obj->images as $img)
+                    <p class="m-0">{{$img->image_path}} <a href="{{URL('/delete/image/'.$img->id.'/'.$obj->id)}}">Delete</a></p>
+                    @endforeach
                     @endif
                     @error("photos")
                     <div class="alert alert-danger mt-2">{{$message}}</div>
@@ -93,6 +93,18 @@
             $('.summernote').summernote();
         });
     </script>
+    @if(isset($action))
+    <script>
+        $(document).ready(function() {
+            if ("{{$action=='delete'}}") {
+                $('input').attr('readonly', 'readonly')
+                $('.summernote').summernote('disable');
+                $('input[type=file]').attr('disabled', 'disabled')
+            }
+        })
+    </script>
+    @endif
+
 </body>
 
 </html>

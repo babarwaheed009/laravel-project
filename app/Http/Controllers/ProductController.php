@@ -66,6 +66,7 @@ class ProductController extends Controller
                         $filename = $file->getClientOriginalName();
                         $fileStore = $file->storeAs('public/upload', $filename);
                         $image = new Images();
+                        $image->id = Str::uuid()->toString();
                         $image->product_id = $uuid;
                         $image->image_path = $filename;
                         $image->save();
@@ -140,6 +141,7 @@ class ProductController extends Controller
                         $filename = $file->getClientOriginalName();
                         $fileStore = $file->storeAs('public/upload', $filename);
                         $image = new Images();
+                        $image->id = Str::uuid()->toString();
                         $image->product_id = $productID;
                         $image->image_path = $filename;
                         $image->save();
